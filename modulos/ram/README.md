@@ -3,6 +3,15 @@ uname -r
 apt search linux-headers-$(uname -r)
 
 
-comandos necesarios para intalar modulos
+Comandos para los modulos
 
-sudo apt-get install libncurses-dev flex bison openssl libssl-dev dkms libelf-dev libudev-dev libpci-dev libiberty-dev autoconf
+instalar
+make
+sudo insmod ram.ko
+
+mostrar
+dmesg
+
+eliminar
+sudo rmmod ram.ko
+pstree1
