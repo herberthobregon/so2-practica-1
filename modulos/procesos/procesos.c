@@ -52,7 +52,7 @@ static struct file_operations proc_fops = {
 
 
 static int __init ejemplo_init(void) {
- printk(KERN_INFO "Inicio del Ejemplo de Clase\n");
+  printk(KERN_INFO "Hola mundo, somos el grupo 1");
 
  struct proc_dir_entry *entry;
  entry = proc_create("proces_grupo1",0777,NULL,&proc_fops); 
@@ -66,7 +66,7 @@ static int __init ejemplo_init(void) {
 }
 
 static void __exit ejemplo_exit(void) {
- printk(KERN_INFO "Fin de mi Ejemplo\n");
+    printk(KERN_INFO "Sayonara mundo, somos el grupo 1 y este fue el monitor de procesos");
  remove_proc_entry("proces_grupo1",NULL);
 }
 
