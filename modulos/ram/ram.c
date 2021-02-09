@@ -27,7 +27,9 @@ static int show_cpu_percent(struct seq_file *m, void *v)
 {
 #define K(x) ((x) << (PAGE_SHIFT - 10))
     si_meminfo(&i); 
-    seq_printf(m, "\nRAM:\n TOTAL RAM: %8lu\n TOTAL CONSUMIDA: %8lu\n PORCENTAJE CONSUMO: %8lu\n",  K(i.totalram), (K(i.totalram - i.freeram)), (K(100 - i.freeram / i.totalram * 100)));
+    long consumida = i.totalram - i.freeram;
+    long porcentajeRAM = (consumida*100)/i.totalram;
+    seq_printf(m, "\nRAM:\n TOTAL RAM: %8lu\n TOTAL CONSUMIDA: %8lu\n PORCENTAJE DE CONSUMO: %d\n",  K(i.totalram), K(consumida), porcentajeRAM );
     return 0;
 }
 
