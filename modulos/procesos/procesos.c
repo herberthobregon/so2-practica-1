@@ -13,18 +13,21 @@
 #include <linux/mm.h>
 #include <linux/swap.h>
 
+
+struct sysinfo i;
+
 static int open_action(struct seq_file *m, void *v)
 {
 
   struct task_struct *task;
 
-  seq_printf(m, "Pid,Nombre_Del_Proceso, State\n");
-
+  seq_printf(m, "Pid,Nombre_Del_Proceso, Usuario, State, RAM\n");
+  si_meminfo(&i);
   for_each_process(task)
   {
     if (task->mm)
     {
-      seq_printf(m, "%d,%s,%d\n", task->pid, task->comm, task->state);
+      seq_printf(m, "%d,%s,%d,%d,%d\n", task->pid, task->comm, task->cred->euid.val,  task->state, task->mm->total_vm);
     }
   }
 
@@ -49,7 +52,7 @@ static struct file_operations proc_fops = {
   llseek : seq_lseek
 };
 
-static int __init ejemplo_init(void)
+static int __init proces_init(void)
 {
   printk(KERN_INFO "Hola mundo, somos el grupo 1");
 
@@ -64,13 +67,13 @@ static int __init ejemplo_init(void)
   return 0;
 }
 
-static void __exit ejemplo_exit(void)
+static void __exit proces_exit(void)
 {
   printk(KERN_INFO "Sayonara mundo, somos el grupo 1 y este fue el monitor de procesos");
   remove_proc_entry("proces_grupo1", NULL);
 }
 
-module_init(ejemplo_init);
-module_exit(ejemplo_exit);
+module_init(proces_init);
+module_exit(proces_exit);
 
 MODULE_LICENSE("GPL");
