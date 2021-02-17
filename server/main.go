@@ -5,17 +5,9 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/compress"
 	"log"
-	"os"
 	"sopes2-practica1/src"
 )
 
-func getenv(key, fallback string) string {
-	value := os.Getenv(key)
-	if len(value) == 0 {
-		return fallback
-	}
-	return value
-}
 
 func main() {
 	app := fiber.New()
@@ -24,11 +16,12 @@ func main() {
 	// GET /
 	app.Get("/ram", src.GetRAM)
 	app.Get("/cpu", src.GetCPU)
+	app.Delete("/cpu/:pid", src.KillProcess)
 
 
-	p := ":" + getenv("GO_PORT", "3000")
+	p := ":" + src.GetEnv("GO_PORT", "3000")
 	fmt.Println(p)
 
-	log.Fatal(app.Listen(":" + getenv("PORT", "3000")))
+	log.Fatal(app.Listen(":" + src.GetEnv("PORT", "3000")))
 
 }
