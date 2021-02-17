@@ -26,7 +26,7 @@ func main() {
 	app.Get("/cpu", src.GetCPU)
 
 
-	p := ":" + getenv("PORT", "3000")
+	p := ":" + getenv("GO_PORT", "3000")
 	fmt.Println(p)
 
 	log.Fatal(app.Listen(":" + getenv("PORT", "3000")))

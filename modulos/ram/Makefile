@@ -1,3 +1,4 @@
+CONFIG_MODULE_SIG=n
 obj-m := ram.o
 
 KDIR    := /lib/modules/$(shell uname -r)/build

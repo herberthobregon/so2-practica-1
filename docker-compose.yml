@@ -1,0 +1,14 @@
+# The default password to connect to the database with sys user is Oradoc_db1.
+# apt-get install -y linux-headers-generic 
+version: "3.8"
+services:
+  workspace:
+    image: herberthobregon/ubuntu:20.04
+    # entrypoint: ["htop"]
+    entrypoint: ["tail", "-f", "/dev/null"]
+    environment:
+      - GO_PORT=3000
+    volumes:
+      - .:/workspace
+    ports:
+      - 3000:3000
