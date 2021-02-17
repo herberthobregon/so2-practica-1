@@ -1,4 +1,4 @@
-obj-m := proces_grupo1.o
+obj-m := procesos.o
 
 KDIR    := /lib/modules/$(shell uname -r)/build
 VERBOSE = 0
@@ -11,6 +11,6 @@ clean:
 
 test:
 	sudo dmesg -C
-	sudo insmod proces_grupo1.ko
-	sudo rmmod proces_grupo1.ko
+	sudo insmod procesos.ko
+	sudo rmmod procesos.ko
 	dmesg
