@@ -21,15 +21,17 @@ static int open_action(struct seq_file *m, void *v)
 
   struct task_struct *task;
 
-  seq_printf(m, "Pid,Nombre_Del_Proceso, Usuario, State, RAM, Pid_Padre, Nombre_Padre\n");
+  // seq_printf(m, "Pid,name,Usuario, State, RAM, Pid_Padre, Nombre_Padre\n");
+  seq_printf(m, "[");
   si_meminfo(&i);
   for_each_process(task)
   {
     if (task->mm)
     {
-      seq_printf(m, "%d,%s,%d,%d,%d,%d,%s\n", task->pid, task->comm, task->cred->euid.val,  task->state, task->mm->total_vm, task->parent->pid, task->parent->comm);
+      seq_printf(m, "{\"pid\":%d,\"name\":\"%s\",\"user\":%d,\"state\":%ld,\"ram\":%ld,\"pid_parent\":%d,\"parent_name\":\"%s\"},", task->pid, task->comm, task->cred->euid.val,  task->state, task->mm->total_vm, task->parent->pid, task->parent->comm);
     }
   }
+  seq_printf(m, "]");
 
   return 0;
 }
