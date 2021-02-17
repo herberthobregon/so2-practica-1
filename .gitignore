@@ -8,8 +8,12 @@ dist/
 \.firebase/
 *.log
 .history/
-*.o
-*.ko
+*.mod
 *.mod.c
+*.mod.cmd
+*.o
+*.o.cmd
+*.ko
+*.ko.cmd
 Module.symvers
 modules.order
