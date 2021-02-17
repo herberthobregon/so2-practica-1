@@ -22,19 +22,15 @@ sudo rmmod ram.ko
 make
 sudo insmod ram.ko
 cat /proc/mem_grupo1 
+cd ..
 
-cd ../procesos
-sudo rmmod ram.ko
+cd procesos
+sudo rmmod procesos.ko
 make
-sudo insmod ram.ko
+sudo insmod procesos.ko
 cat /proc/proces_grupo1 
+cd ..
 
-out:
-
-RAM:
- TOTAL RAM:   590356
- TOTAL CONSUMIDA:   501380
- PORCENTAJE DE CONSUMO: 84
 ```
 
 ### Mostrar
