@@ -39,7 +39,7 @@ import Chip from '@material-ui/core/Chip';
 import { format } from 'date-fns';
 
 
-//import axios from 'axios';
+import axios from 'axios';
 
 const useTreeItemStyles = makeStyles((theme) => ({
     root: {
@@ -211,10 +211,10 @@ const states = {
     }
 };
 
-const Processes = ({ }) => {
+const Processes = ({ setAlert }) => {
 
     const classes = useStyles();
-    const TEST = true;
+    const TEST = false;
 
     const [state, setstate] = useState({
         lastUpdated: "",
@@ -230,15 +230,20 @@ const Processes = ({ }) => {
 
     const [selected, setSelected] = useState([]);
 
-    const [] = useState(0);
-
-    const loadData = (filter) => {
+    const loadData = async (filter) => {
         let newData = [];
         if (TEST) {
             newData = TestData;
         }
         else {
-            // AXIOS GET
+            try {
+                const { data } = await axios.get('/cpu');
+                newData = data.process;
+                console.log(data);
+            }
+            catch (err) {
+                setAlert('No se pudo conectar con el server :(', 'error', 1000);
+            }
         };
 
         const stats = {
@@ -260,7 +265,7 @@ const Processes = ({ }) => {
         setstate({ ...state, processes: newData, ...stats });
     }
 
-    const deleteProcess = (_e) => {
+    const deleteProcess = async (_e) => {
         const pid = selected;
 
         if (TEST) {
@@ -269,12 +274,25 @@ const Processes = ({ }) => {
             setstate({ ...state, processes });
         }
         else {
-            //AXIOS
+            try {
+                await axios.delete(`/cpu/${pid}`);
+                const processes = state.processes.filter(p => p.pid != pid && p.pid_parent != pid);
+                setstate({ ...state, processes });
+            }
+            catch (err) {
+                setAlert('No se pudo conectar con el server :(', 'error', 1000);
+            }
         }
     }
 
     useEffect(() => {
+        const timeoutId = setTimeout(() => { loadData(); }, 15000);
         loadData();
+
+        return () => {
+            clearInterval(timeoutId);
+        };
+
     }, []);
 
     const getTreeElement = (node, array) => {
@@ -282,10 +300,10 @@ const Processes = ({ }) => {
         const { label, icon, color, bgColor } = states[state] || states.defaultState;
         return (<StyledTreeItem
             nodeId={pid}
-            labelText={name}
+            labelText={`${pid} - ${name}`}
             labelIcon={icon}
-            description={`Proceso ${label} - Usuario ${user} - RAM ${ram}`}
-            labelInfo={`U${user}-${ram}MB`}
+            description={`Proceso ${label} - Usuario ${user} - RAM ${ram} `}
+            labelInfo={`U${user} -${ram} MB`}
             color={color}
             bgColor={bgColor}
         >

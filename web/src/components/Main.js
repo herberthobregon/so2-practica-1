@@ -15,12 +15,13 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Typography from '@material-ui/core/Typography';
 
 import FaceIcon from '@material-ui/icons/Face';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 
 import { Link } from 'react-router-dom';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import Processes from './Processes';
 import Ram from './Ram';
@@ -133,6 +134,11 @@ export default function Navbar() {
                     >
                         <MenuIcon />
                     </IconButton>
+
+
+                    <Typography variant="h4" noWrap>
+                        Practica 1 - SO2 - Grupo 1
+                    </Typography>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -175,7 +181,9 @@ export default function Navbar() {
                 <div className="container">
                     <Alert></Alert>
                     <Switch>
-                        <Route exact path='/'></Route>
+                        <Route exact path='/'>
+                            <Redirect to="/processes" />
+                        </Route>
                         <Route exact path='/processes' component={Processes}></Route>
                         <Route exact path="/ram" component={Ram}></Route>
                     </Switch>
