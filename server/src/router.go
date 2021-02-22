@@ -52,7 +52,7 @@ func GetRAM(c *fiber.Ctx) error {
 }
 
 func GetCPU(c *fiber.Ctx) error {
-	path := "/proc/mem_grupo1"
+	path := "/proc/proces_grupo1"
 	if GetEnv("NODE_ENV", "") == "dev" {
 		path = "test/process.json"
 	}
