@@ -36,7 +36,7 @@ func GetRAM(c *fiber.Ctx) error {
 	}
 	ram := new(RAM)
 	// To-Do Parse
-	fmt.Println(str)
+	//fmt.Println(str)
 	err = json.Unmarshal([]byte(str), &ram)
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{
@@ -64,7 +64,7 @@ func GetCPU(c *fiber.Ctx) error {
 	}
 
 	// To-Do Parse
-	fmt.Println(str)
+	//fmt.Println(str)
 	process := new([]Process)
 	err = json.Unmarshal([]byte(strings.Replace(str, ",]", "]", -1)), &process)
 	if err != nil {
