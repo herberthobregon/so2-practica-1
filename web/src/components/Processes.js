@@ -215,6 +215,7 @@ const Processes = ({ setAlert }) => {
 
     const classes = useStyles();
     const TEST = false;
+    const RAM = 590;
 
     const [state, setstate] = useState({
         lastUpdated: "",
@@ -302,8 +303,8 @@ const Processes = ({ setAlert }) => {
             nodeId={pid}
             labelText={`${pid} - ${name}`}
             labelIcon={icon}
-            description={`Proceso ${label} - Usuario ${user} - RAM ${ram} `}
-            labelInfo={`U${user} -${ram} MB`}
+            description={`Proceso ${label} - Usuario ${user} - RAM ${ram / 1000} MB `}
+            labelInfo={`User ${user} -${Math.round(ram / RAM) / 100}% RAM`}
             color={color}
             bgColor={bgColor}
         >

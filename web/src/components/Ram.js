@@ -74,6 +74,8 @@ const Ram = ({ setAlert }) => {
                 setAlert('No se pudo conectar con el server :(', 'error', 1000);
             }
         };
+        newData.ram = Math.floor(newData.ram / 1000);
+        newData.ram_usage = Math.floor(newData.ram_usage / 1000);
 
         const newPoint = { x: new Date(), y: newData.ram_usage };
 

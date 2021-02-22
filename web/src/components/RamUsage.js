@@ -9,10 +9,10 @@ const RamUsage = ({ used_ram, total_ram }) => {
     const options = {
         animationEnabled: true,
         title: {
-            text: "Utilización"
+            text: `RAM TOTAL ${total_ram} MB`
         },
         subtitles: [{
-            text: `${(Math.round(used_ram * 10000 / total_ram)) / 100} % utilizada`,
+            text: `${Math.round(used_ram * 100 / total_ram)} % utilizada`,
             verticalAlign: "center",
             fontSize: 24,
             dockInsidePlotArea: true
@@ -21,7 +21,7 @@ const RamUsage = ({ used_ram, total_ram }) => {
             type: "doughnut",
             showInLegend: true,
             indexLabel: "{name}: {y}",
-            yValueFormatString: "#,### MB",
+            yValueFormatString: "### MB",
             dataPoints: [
                 { name: "Utilizada", y: used_ram },
                 { name: "Libre", y: total_ram - used_ram },
